@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       fetchData = data;
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
     });
 });
 
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputBuscar = document.getElementById("inputBuscar");
   
 
+  /* modificar evento en el click (mauri) */
 
   btnBuscar.addEventListener("click", () => {
    
@@ -58,6 +59,7 @@ const busquedaCoincideConOverview = (pelicula, busqueda) => {
   return false;
 };
 
+/* terminar (santi) */
 const busquedaCoincideConGenero = (pelicula, busqueda) => {
   let resultado = false;
   pelicula.genres.forEach((genero) => {
@@ -69,10 +71,10 @@ const busquedaCoincideConGenero = (pelicula, busqueda) => {
 
 const agregarALista = (lista, pelicula) => {
   let votos = pelicula.vote_average;
-  let rating = Math.round(votos / 2);
-  let releaseYear = pelicula.release_date.split("-")[0];
+  let fecha = pelicula.release_date.split("-")[0];
+  let puntaje = Math.round(votos / 2);
   let genres = generarGeneros(pelicula);
-  let peliInner = `
+  let ponercosas = `
       <div class="card-content" data-bs-toggle = "offcanvas" data-bs-target = "#offcanvasTop" aria-controls = "offcanvasTop">
       
           <div>
@@ -102,7 +104,7 @@ const agregarALista = (lista, pelicula) => {
                   More
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownBtn">
-                  <div class="dropdown-item">Year: ${releaseYear}</div>
+                  <div class="dropdown-item">Year: ${fecha}</div>
                   <div class="dropdown-item">Runtime: ${pelicula.runtime}m</div>
                   <div class="dropdown-item">Budget: $${pelicula.budget}</div>
                   <div class="dropdown-item">Revenue: $${pelicula.revenue}</div>
@@ -116,11 +118,11 @@ const agregarALista = (lista, pelicula) => {
 
   let peliHtml = document.createElement("li");
 
-  peliHtml.innerHTML += peliInner; 
+  peliHtml.innerHTML += ponercosas; 
   lista.appendChild(peliHtml);
 
-  //Rating
-  for (let i = 0; i < rating; i++) {
+ 
+  for (let i = 0; i <puntaje; i++) {
     let star = document.getElementById(`${pelicula.title}_star_${i}`);
     star.classList.add("checked");
   }
@@ -136,3 +138,5 @@ const generarGeneros = (pelicula) => {
     console.log(resultado)
   return resultado;
 }
+
+/* falta agregar función de géneros (joaco) */
